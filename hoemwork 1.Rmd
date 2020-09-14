@@ -1,0 +1,112 @@
+---
+title: "Homework1"
+author: "Alain Brou"
+date: "9/12/2020"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+# I)
+
+studygroup<-Alain Brou, Doukoure
+studygroup
+
+# III)
+
+#Sample dice 
+sample(1:6,20, replace= T)
+sample(1:10, 1)
+sample(1:10, 20, replace = T)
+
+# so the sample of a dice can be done through this function
+
+# IV)
+
+set.seed(2)
+x<-1:50
+w<-1+sqrt(x)/2
+example0<-data.frame(x=x, y=x+rnorm(x)*w)
+attach(example0)
+rm<-lm(y~x)
+summary(rm)
+
+brm<-lowess(x,y)
+plot(x,y)
+lines(x,brm$y)
+abline(0,1,lty=3)
+abline(coef(rm))
+
+detach()
+
+load("C:/Users/ALAIN RICHARD/AppData/Local/Temp/Temp1_acs2017_ny.zip/acs2017_ny_data.RData")
+
+acs2017_ny[1:10, 1:7]
+
+attach(acs2017_ny)
+
+summary(acs2017_ny)
+
+print(NN_obs<-length(AGE))
+summary(AGE[female==1])
+summary(AGE[!female])
+
+#Average women and men
+
+mean(AGE[female==1])
+
+sd(AGE[female==1])
+
+mean(AGE[!female])
+
+sd(AGE[!female])
+
+list(acs2017_ny)
+
+T<-acs2017_ny$RACE
+avgs<-acs2017
+group_by(educ_coll,in_NYC)
+summary(mean(EDUCD),sd(EDUCD), n())
+mean(acs2017_ny$educ_coll)
+
+
+# IV)
+
+library(readxl)
+SP_Data <- read_excel("~/SP Data.xlsx")
+ View(SP_Data)
+R<-SP_Data$value
+mean(R)
+# this data is the historical annual return of S&P since 1928
+
+mean(R>0)
+mean(R<0)
+sd(R)
+sd(R>0)
+sd(R<0)
+
+D<-SP_Data$date
+K<-lm(R~D)
+plot(R,type ="l", ylab= "value", lwd=2,xlim=c(1,93), ylim= c(-50,50), col= "blue")
+
+# the annualaized data of the S&P return fromm 1928 to 2020 is quite volatilw which is traduced by the 46.57% as standard deviation
+
+# Another example
+
+library(readxl)
+S_P_historical_data <- read_excel("R/ecob2000_lecture1/S&P historical data.xlsx")
+View(S_P_historical_data)
+
+frequency(S_P_historical_data$return)
+plot(S_P_historical_data$return, type="l", xlim= c(0,20), ylim=c(-0.05,0.05))
+mean(S_P_historical_data$return)
+mean(S_P_historical_data$return>0)
+mean(S_P_historical_data$return<0)
+sd(S_P_historical_data$return)
+sd(S_P_historical_data$return>0)
+sd(S_P_historical_data$return<0)
+volatility<-(sd(S_P_historical_data$return))^2
+volatility
+# we can conclude that the stock retirn over the period from 8/12/20 to 9/12/20 was less volatile on the 13 first days compared to the other part of the time where the daily return was quite volatile
+
+

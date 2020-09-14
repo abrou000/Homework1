@@ -1,0 +1,192 @@
+---
+title: "Homework1-console"
+author: "Alain Brou"
+date: "9/14/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+> ---
++ title: "Homework1"
+Error in -title : invalid argument to unary operator
+> author: "Alain Brou"
+Error: object 'author' not found
+> date: "9/12/2020"
+Error in date:"9/12/2020" : NA/NaN argument
+In addition: Warning message:
+NAs introduced by coercion 
+> output:
++   html_document: default
+Error: object 'output' not found
+>   word_document: default
+Error: object 'word_document' not found
+>   pdf_document: default
+Error: object 'pdf_document' not found
+> ---
++ # I)
++ 
++ studygroup<-Alain Brou, Doukoure
+Error: unexpected symbol in:
+"
+studygroup<-Alain Brou"
+> studygroup
+Error: object 'studygroup' not found
+> 
+> # III)
+> 
+> #Sample dice 
+> sample(1:6,20, replace= T)
+ [1] 1 5 2 6 1 1 1 5 1 5 3 3 6 5 6 3 1 4 6 3
+> sample(1:10, 1)
+[1] 2
+> sample(1:10, 20, replace = T)
+ [1]  6  9  4  2  6  7  4  6  4 10  8 10  8 10  6 10 10  4  2
+[20]  3
+> 
+> # so the sample of a dice can be done through this function
+> 
+> # IV)
+> 
+> set.seed(2)
+> x<-1:50
+> w<-1+sqrt(x)/2
+> example0<-data.frame(x=x, y=x+rnorm(x)*w)
+> attach(example0)
+The following object is masked _by_ .GlobalEnv:
+
+    x
+
+> rm<-lm(y~x)
+> summary(rm)
+
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.8144 -2.1918 -0.4237  2.1990  9.3659 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.06816    1.13754   0.939    0.352    
+x            0.96323    0.03882  24.810   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.962 on 48 degrees of freedom
+Multiple R-squared:  0.9277,	Adjusted R-squared:  0.9262 
+F-statistic: 615.5 on 1 and 48 DF,  p-value: < 2.2e-16
+
+> 
+> brm<-lowess(x,y)
+> plot(x,y)
+> lines(x,brm$y)
+> abline(0,1,lty=3)
+> abline(coef(rm))
+> 
+> detach()
+> 
+> load("C:/Users/ALAIN RICHARD/AppData/Local/Temp/Temp1_acs2017_ny.zip/acs2017_ny_data.RData")
+Error in readChar(con, 5L, useBytes = TRUE) : cannot open the connection
+In addition: Warning message:
+In readChar(con, 5L, useBytes = TRUE) :
+  cannot open compressed file 'C:/Users/ALAIN RICHARD/AppData/Local/Temp/Temp1_acs2017_ny.zip/acs2017_ny_data.RData', probable reason 'No such file or directory'
+> 
+> acs2017_ny[1:10, 1:7]
+Error: object 'acs2017_ny' not found
+> 
+> attach(acs2017_ny)
+Error in attach(acs2017_ny) : object 'acs2017_ny' not found
+> 
+> summary(acs2017_ny)
+Error in summary(acs2017_ny) : object 'acs2017_ny' not found
+> 
+> print(NN_obs<-length(AGE))
+Error in print(NN_obs <- length(AGE)) : object 'AGE' not found
+> summary(AGE[female==1])
+Error in summary(AGE[female == 1]) : object 'AGE' not found
+> summary(AGE[!female])
+Error in summary(AGE[!female]) : object 'AGE' not found
+> 
+> #Average women and men
+> 
+> mean(AGE[female==1])
+Error in mean(AGE[female == 1]) : object 'AGE' not found
+> 
+> sd(AGE[female==1])
+Error in is.data.frame(x) : object 'AGE' not found
+> 
+> mean(AGE[!female])
+Error in mean(AGE[!female]) : object 'AGE' not found
+> 
+> sd(AGE[!female])
+Error in is.data.frame(x) : object 'AGE' not found
+> 
+> list(acs2017_ny)
+Error: object 'acs2017_ny' not found
+> 
+> T<-acs2017_ny$RACE
+Error: object 'acs2017_ny' not found
+> avgs<-acs2017
+Error: object 'acs2017' not found
+> group_by(educ_coll,in_NYC)
+Error in group_by(educ_coll, in_NYC) : could not find function "group_by"
+> summary(mean(EDUCD),sd(EDUCD), n())
+Error in mean(EDUCD) : object 'EDUCD' not found
+> mean(acs2017_ny$educ_coll)
+Error in mean(acs2017_ny$educ_coll) : object 'acs2017_ny' not found
+> 
+> 
+> # IV)
+> 
+> library(readxl)
+> SP_Data <- read_excel("~/SP Data.xlsx")
+>  View(SP_Data)
+> R<-SP_Data$value
+> mean(R)
+[1] 7.638817
+> # this data is the historical annual return of S&P since 1928
+> 
+> mean(R>0)
+[1] 0.6666667
+> mean(R<0)
+[1] 0.311828
+> sd(R)
+[1] 19.05654
+> sd(R>0)
+[1] 0.4739596
+> sd(R<0)
+[1] 0.4657508
+> 
+> D<-SP_Data$date
+> K<-lm(R~D)
+> plot(R,type ="l", ylab= "value", lwd=2,xlim=c(1,93), ylim= c(-50,50), col= "blue")
+> 
+> # the annualaized data of the S&P return fromm 1928 to 2020 is quite volatilw which is traduced by the 46.57% as standard deviation
+> 
+> # Another example
+> 
+> library(readxl)
+> S_P_historical_data <- read_excel("R/ecob2000_lecture1/S&P historical data.xlsx")
+> View(S_P_historical_data)
+> 
+> frequency(S_P_historical_data$return)
+[1] 1
+> plot(S_P_historical_data$return, type="l", xlim= c(0,20), ylim=c(-0.05,0.05))
+> mean(S_P_historical_data$return)
+[1] -0.001372944
+> mean(S_P_historical_data$return>0)
+[1] 0.6
+> mean(S_P_historical_data$return<0)
+[1] 0.4
+> sd(S_P_historical_data$return)
+[1] 0.01027283
+> sd(S_P_historical_data$return>0)
+[1] 0.5026247
+> sd(S_P_historical_data$return<0)
+[1] 0.5026247
+> volatility<-(sd(S_P_historical_data$return))^2
+> volatility
+[1] 0.000105531
+> # we can conclude that the stock retirn over the period from 8/12/20 to 9/12/20 was less volatile on the 13 first days compared to the other part of the time where the daily return was quite volatile
