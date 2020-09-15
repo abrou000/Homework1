@@ -9,21 +9,21 @@ output:
 ---
 # I)
 
-studygroup<-Alain Brou, Doukoure
-studygroup
+#studygroup:Alain Brou, Doukoure, Carol-Ann
 
 # III)
 
 #Sample dice 
-sample(1:6,20, replace= T)
+sample(1:6,20, replace= TRUE)
 sample(1:10, 1)
-sample(1:10, 20, replace = T)
+sample(1:10, 20, replace = TRUE)
 
 # so the sample of a dice can be done through this function
 
 # IV)
 
 set.seed(2)
+
 x<-1:50
 w<-1+sqrt(x)/2
 example0<-data.frame(x=x, y=x+rnorm(x)*w)
@@ -63,12 +63,16 @@ sd(AGE[!female])
 
 list(acs2017_ny)
 
-T<-acs2017_ny$RACE
-avgs<-acs2017
-group_by(educ_coll,in_NYC)
-summary(mean(EDUCD),sd(EDUCD), n())
-mean(acs2017_ny$educ_coll)
+let analyze another fact between RACE and EDUC is there any correlation and how intense is that?
 
+T<-acs2017_ny$RACE
+T
+U<-acs2017_ny$EDUC
+U
+RAED<-lm(U~T)
+coef(RAED)
+
+# we notice a weak correlation between RACE and EDUC.
 
 # IV)
 
@@ -107,6 +111,9 @@ sd(S_P_historical_data$return>0)
 sd(S_P_historical_data$return<0)
 volatility<-(sd(S_P_historical_data$return))^2
 volatility
-# we can conclude that the stock retirn over the period from 8/12/20 to 9/12/20 was less volatile on the 13 first days compared to the other part of the time where the daily return was quite volatile
+# we can conclude that the stock return over the period from 8/12/20 to 9/12/20 was less volatile on the 13 first days compared to the other part of the time where the daily return was quite volatile
+
+
+The hot hands fallacy could be qualified as surprinsing discovery about statistics and I think that helps investment strategy in many ways: it warns us that there is not abosolute certainity about data and that we should be carefully in interpreting statistic analysis. Also, it shows off the randomness always existing in all pattern.
 
 

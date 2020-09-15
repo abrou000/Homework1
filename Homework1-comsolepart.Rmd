@@ -1,0 +1,842 @@
+---
+title: "Homework1-consolepart"
+author: "Alain Brou"
+date: "9/14/2020"
+output: html_document
+---
+ # I)
+> 
+> #studygroup:Alain Brou, Doukoure, Carol-Ann
+> 
+> # III)
+> 
+> #Sample dice 
+> sample(1:6,20, replace= TRUE)
+ [1] 1 4 6 1 5 6 4 6 3 5 4 5 5 1 5 2 3 3 1 6
+> sample(1:10, 1)
+[1] 9
+> sample(1:10, 20, replace = TRUE)
+ [1]  5  3  3  6  1  2 10  4  9  1  7  3  5  8  4  2  8  1  5  4
+> 
+> # so the sample of a dice can be done through this function
+> 
+> # IV)
+> set.seed(2)
+> 
+> x<-1:50
+> w<-1+sqrt(x)/2
+> example0<-data.frame(x=x, y=x+rnorm(x)*w)
+> attach(example0)
+The following object is masked _by_ .GlobalEnv:
+
+    x
+
+> rm<-lm(y~x)
+> summary(rm)
+
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.8144 -2.1918 -0.4237  2.1990  9.3659 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.06816    1.13754   0.939    0.352    
+x            0.96323    0.03882  24.810   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.962 on 48 degrees of freedom
+Multiple R-squared:  0.9277,	Adjusted R-squared:  0.9262 
+F-statistic: 615.5 on 1 and 48 DF,  p-value: < 2.2e-16
+
+> 
+> brm<-lowess(x,y)
+> plot(x,y)
+> lines(x,brm$y)
+> abline(0,1,lty=3)
+> abline(coef(rm))
+> 
+> detach()
+> load("C:/Users/ALAIN RICHARD/AppData/Local/Temp/Temp1_acs2017_ny.zip/acs2017_ny_data.RData")
+> acs2017_ny[1:10, 1:7]
+# A tibble: 10 x 7
+     AGE female educ_nohs educ_hs educ_somecoll educ_college educ_advdeg
+   <dbl>  <dbl>     <dbl>   <dbl>         <dbl>        <dbl>       <dbl>
+ 1    72      1         0       0             0            0           1
+ 2    72      0         0       0             0            0           1
+ 3    31      0         0       0             0            1           0
+ 4    28      1         0       0             0            1           0
+ 5    54      0         0       0             0            0           1
+ 6    45      1         0       1             0            0           0
+ 7    84      1         0       0             1            0           0
+ 8    71      0         0       0             0            1           0
+ 9    68      1         0       0             1            0           0
+10    37      1         1       0             0            0           0
+> 
+> attach(acs2017_ny)
+The following objects are masked from acs2017_ny (pos = 3):
+
+    AfAm, AGE, Amindian, ANCESTR1, ANCESTR1D, ANCESTR2, ANCESTR2D, Asian,
+    below_150poverty, below_200poverty, below_povertyline, BPL, BPLD, BUILTYR2,
+    CITIZEN, CLASSWKR, CLASSWKRD, Commute_bus, Commute_car, Commute_other,
+    Commute_rail, Commute_subway, COSTELEC, COSTFUEL, COSTGAS, COSTWATR, DEGFIELD,
+    DEGFIELD2, DEGFIELD2D, DEGFIELDD, DEPARTS, EDUC, educ_advdeg, educ_college,
+    educ_hs, educ_nohs, educ_somecoll, EDUCD, EMPSTAT, EMPSTATD, FAMSIZE, female,
+    foodstamps, FOODSTMP, FTOTINC, FUELHEAT, GQ, has_AnyHealthIns,
+    has_PvtHealthIns, HCOVANY, HCOVPRIV, HHINCOME, Hisp_Cuban, Hisp_DomR, Hisp_Mex,
+    Hisp_PR, HISPAN, HISPAND, Hispanic, in_Bronx, in_Brooklyn, in_Manhattan,
+    in_Nassau, in_NYC, in_Queens, in_StatenI, in_Westchester, INCTOT, INCWAGE, IND,
+    LABFORCE, LINGISOL, MARST, MIGCOUNTY1, MIGPLAC1, MIGPUMA1, MIGRATE1, MIGRATE1D,
+    MORTGAGE, NCHILD, NCHLT5, OCC, OWNCOST, OWNERSHP, OWNERSHPD, POVERTY, PUMA,
+    PWPUMA00, RACE, race_oth, RACED, RELATE, RELATED, RENT, ROOMS, SCHOOL, SEX,
+    SSMC, TRANTIME, TRANWORK, UHRSWORK, UNITSSTR, unmarried, veteran, VETSTAT,
+    VETSTATD, white, WKSWORK2, YRSUSA1
+
+The following objects are masked from acs2017_ny (pos = 4):
+
+    AfAm, AGE, Amindian, ANCESTR1, ANCESTR1D, ANCESTR2, ANCESTR2D, Asian,
+    below_150poverty, below_200poverty, below_povertyline, BPL, BPLD, BUILTYR2,
+    CITIZEN, CLASSWKR, CLASSWKRD, Commute_bus, Commute_car, Commute_other,
+    Commute_rail, Commute_subway, COSTELEC, COSTFUEL, COSTGAS, COSTWATR, DEGFIELD,
+    DEGFIELD2, DEGFIELD2D, DEGFIELDD, DEPARTS, EDUC, educ_advdeg, educ_college,
+    educ_hs, educ_nohs, educ_somecoll, EDUCD, EMPSTAT, EMPSTATD, FAMSIZE, female,
+    foodstamps, FOODSTMP, FTOTINC, FUELHEAT, GQ, has_AnyHealthIns,
+    has_PvtHealthIns, HCOVANY, HCOVPRIV, HHINCOME, Hisp_Cuban, Hisp_DomR, Hisp_Mex,
+    Hisp_PR, HISPAN, HISPAND, Hispanic, in_Bronx, in_Brooklyn, in_Manhattan,
+    in_Nassau, in_NYC, in_Queens, in_StatenI, in_Westchester, INCTOT, INCWAGE, IND,
+    LABFORCE, LINGISOL, MARST, MIGCOUNTY1, MIGPLAC1, MIGPUMA1, MIGRATE1, MIGRATE1D,
+    MORTGAGE, NCHILD, NCHLT5, OCC, OWNCOST, OWNERSHP, OWNERSHPD, POVERTY, PUMA,
+    PWPUMA00, RACE, race_oth, RACED, RELATE, RELATED, RENT, ROOMS, SCHOOL, SEX,
+    SSMC, TRANTIME, TRANWORK, UHRSWORK, UNITSSTR, unmarried, veteran, VETSTAT,
+    VETSTATD, white, WKSWORK2, YRSUSA1
+
+> 
+> summary(acs2017_ny)
+      AGE            female         educ_nohs        educ_hs       educ_somecoll  
+ Min.   : 0.00   Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.000  
+ 1st Qu.:22.00   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.000  
+ Median :42.00   Median :1.0000   Median :0.000   Median :0.0000   Median :0.000  
+ Mean   :41.57   Mean   :0.5156   Mean   :0.271   Mean   :0.2804   Mean   :0.173  
+ 3rd Qu.:60.00   3rd Qu.:1.0000   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:0.000  
+ Max.   :95.00   Max.   :1.0000   Max.   :1.000   Max.   :1.0000   Max.   :1.000  
+                                                                                  
+  educ_college     educ_advdeg                  SCHOOL      
+ Min.   :0.0000   Min.   :0.000   N/A              :  5569  
+ 1st Qu.:0.0000   1st Qu.:0.000   No, not in school:144968  
+ Median :0.0000   Median :0.000   Yes, in school   : 46048  
+ Mean   :0.1567   Mean   :0.119   Missing          :     0  
+ 3rd Qu.:0.0000   3rd Qu.:0.000                             
+ Max.   :1.0000   Max.   :1.000                             
+                                                            
+                        EDUC                                                EDUCD      
+ Grade 12                 :55119   Regular high school diploma                 :35689  
+ 4 years of college       :30802   Bachelor's degree                           :30802  
+ 5+ years of college      :23385   1 or more years of college credit, no degree:19947  
+ 1 year of college        :19947   Master's degree                             :17010  
+ Nursery school to grade 4:14240   Associate's degree, type not specified      :14065  
+ 2 years of college       :14065   Some college, but less than 1 year          : 9086  
+ (Other)                  :39027   (Other)                                     :69986  
+                                     DEGFIELD     
+ N/A                                     :142398  
+ Business                                :  9802  
+ Education Administration and Teaching   :  6708  
+ Social Sciences                         :  4836  
+ Medical and Health Sciences and Services:  3919  
+ Fine Arts                               :  3491  
+ (Other)                                 : 25431  
+                                  DEGFIELDD     
+ N/A                                   :142398  
+ Psychology                            :  2926  
+ Business Management and Administration:  2501  
+ Accounting                            :  2284  
+ General Education                     :  2238  
+ English Language and Literature       :  2202  
+ (Other)                               : 42036  
+                                 DEGFIELD2     
+ N/A                                  :190425  
+ Business                             :   972  
+ Social Sciences                      :   853  
+ Education Administration and Teaching:   611  
+ Fine Arts                            :   465  
+ Communications                       :   352  
+ (Other)                              :  2907  
+                                                           DEGFIELD2D          PUMA     
+ N/A                                                            :190425   Min.   : 100  
+ Psychology                                                     :   284   1st Qu.:1500  
+ Economics                                                      :   260   Median :3201  
+ Political Science and Government                               :   243   Mean   :2713  
+ Business Management and Administration                         :   217   3rd Qu.:3902  
+ French, German, Latin and Other Common Foreign Language Studies:   205   Max.   :4114  
+ (Other)                                                        :  4951                 
+       GQ           OWNERSHP       OWNERSHPD        MORTGAGE        OWNCOST     
+ Min.   :1.000   Min.   :0.000   Min.   : 0.00   Min.   :0.000   Min.   :    0  
+ 1st Qu.:1.000   1st Qu.:1.000   1st Qu.:12.00   1st Qu.:0.000   1st Qu.: 1208  
+ Median :1.000   Median :1.000   Median :13.00   Median :1.000   Median : 2891  
+ Mean   :1.148   Mean   :1.266   Mean   :14.95   Mean   :1.453   Mean   :38582  
+ 3rd Qu.:1.000   3rd Qu.:2.000   3rd Qu.:22.00   3rd Qu.:3.000   3rd Qu.:99999  
+ Max.   :5.000   Max.   :2.000   Max.   :22.00   Max.   :4.000   Max.   :99999  
+                                                                                
+      RENT         COSTELEC       COSTGAS        COSTWATR       COSTFUEL       HHINCOME      
+ Min.   :   0   Min.   :   0   Min.   :   0   Min.   :   0   Min.   :   0   Min.   : -11800  
+ 1st Qu.:   0   1st Qu.: 960   1st Qu.: 840   1st Qu.: 320   1st Qu.:9993   1st Qu.:  41600  
+ Median :   0   Median :1560   Median :2400   Median :1400   Median :9993   Median :  81700  
+ Mean   : 393   Mean   :2311   Mean   :5032   Mean   :4836   Mean   :7935   Mean   : 114902  
+ 3rd Qu.: 630   3rd Qu.:2520   3rd Qu.:9993   3rd Qu.:9993   3rd Qu.:9993   3rd Qu.: 140900  
+ Max.   :3800   Max.   :9997   Max.   :9997   Max.   :9997   Max.   :9997   Max.   :2030000  
+                                                                            NA's   :10630    
+    FOODSTMP        LINGISOL         ROOMS           BUILTYR2         UNITSSTR    
+ Min.   :1.000   Min.   :0.000   Min.   : 0.000   Min.   : 0.000   Min.   : 0.00  
+ 1st Qu.:1.000   1st Qu.:1.000   1st Qu.: 4.000   1st Qu.: 1.000   1st Qu.: 3.00  
+ Median :1.000   Median :1.000   Median : 6.000   Median : 3.000   Median : 3.00  
+ Mean   :1.147   Mean   :1.002   Mean   : 5.887   Mean   : 3.711   Mean   : 4.39  
+ 3rd Qu.:1.000   3rd Qu.:1.000   3rd Qu.: 8.000   3rd Qu.: 5.000   3rd Qu.: 6.00  
+ Max.   :2.000   Max.   :2.000   Max.   :16.000   Max.   :22.000   Max.   :10.00  
+                                                                                  
+    FUELHEAT          SSMC            FAMSIZE           NCHILD           NCHLT5       
+ Min.   :0.000   Min.   :0.00000   Min.   : 1.000   Min.   :0.0000   Min.   :0.00000  
+ 1st Qu.:2.000   1st Qu.:0.00000   1st Qu.: 2.000   1st Qu.:0.0000   1st Qu.:0.00000  
+ Median :2.000   Median :0.00000   Median : 3.000   Median :0.0000   Median :0.00000  
+ Mean   :2.959   Mean   :0.01102   Mean   : 3.087   Mean   :0.5009   Mean   :0.08441  
+ 3rd Qu.:4.000   3rd Qu.:0.00000   3rd Qu.: 4.000   3rd Qu.:1.0000   3rd Qu.:0.00000  
+ Max.   :9.000   Max.   :2.00000   Max.   :19.000   Max.   :9.0000   Max.   :5.00000  
+                                                                                      
+     RELATE          RELATED           MARST            RACE          RACED    
+ Min.   : 1.000   Min.   : 101.0   Min.   :1.000   Min.   :1.00   Min.   :100  
+ 1st Qu.: 1.000   1st Qu.: 101.0   1st Qu.:1.000   1st Qu.:1.00   1st Qu.:100  
+ Median : 2.000   Median : 201.0   Median :5.000   Median :1.00   Median :100  
+ Mean   : 3.307   Mean   : 335.6   Mean   :3.742   Mean   :2.03   Mean   :205  
+ 3rd Qu.: 3.000   3rd Qu.: 301.0   3rd Qu.:6.000   3rd Qu.:2.00   3rd Qu.:200  
+ Max.   :13.000   Max.   :1301.0   Max.   :6.000   Max.   :9.00   Max.   :990  
+                                                                               
+     HISPAN          HISPAND                  BPL                         BPLD       
+ Min.   :0.0000   Min.   :  0.00   New York     :128517   New York          :128517  
+ 1st Qu.:0.0000   1st Qu.:  0.00   West Indies  :  8481   China             :  4116  
+ Median :0.0000   Median :  0.00   China        :  4964   Dominican Republic:  3517  
+ Mean   :0.4153   Mean   : 44.75   SOUTH AMERICA:  4957   Pennsylvania      :  3303  
+ 3rd Qu.:0.0000   3rd Qu.:  0.00   India        :  3476   New Jersey        :  3127  
+ Max.   :4.0000   Max.   :498.00   Pennsylvania :  3303   Puerto Rico       :  2272  
+                                   (Other)      : 42887   (Other)           : 51733  
+                     ANCESTR1                                       ANCESTR1D    
+ Not Reported            :32021   Not Reported                           :32021  
+ Italian                 :20577   Italian (1990-2000, ACS, PRCS)         :20577  
+ Irish, various subheads,:16388   Irish                                  :15651  
+ German                  :12781   German (1990-2000, ACS/PRCS)           :12605  
+ African-American        : 9559   African-American (1990-2000, ACS, PRCS): 9559  
+ United States           : 8209   United States                          : 8209  
+ (Other)                 :97050   (Other)                                :97963  
+         ANCESTR2                               ANCESTR2D         CITIZEN      
+ Not Reported:141487   Not Reported                  :141487   Min.   :0.0000  
+ German      :  9476   German (1990-2000, ACS, PRCS) :  9441   1st Qu.:0.0000  
+ Irish       :  9238   Irish                         :  8809   Median :0.0000  
+ English     :  4895   English                       :  4895   Mean   :0.4793  
+ Italian     :  4531   Italian (1990-2000, ACS, PRCS):  4531   3rd Qu.:0.0000  
+ Polish      :  3113   Polish                        :  3113   Max.   :3.0000  
+ (Other)     : 23845   (Other)                       : 24309                   
+    YRSUSA1          HCOVANY         HCOVPRIV         SEX            EMPSTAT     
+ Min.   : 0.000   Min.   :1.000   Min.   :1.000   Male  : 95222   Min.   :0.000  
+ 1st Qu.: 0.000   1st Qu.:2.000   1st Qu.:1.000   Female:101363   1st Qu.:1.000  
+ Median : 0.000   Median :2.000   Median :2.000                   Median :1.000  
+ Mean   : 5.377   Mean   :1.951   Mean   :1.691                   Mean   :1.514  
+ 3rd Qu.: 0.000   3rd Qu.:2.000   3rd Qu.:2.000                   3rd Qu.:3.000  
+ Max.   :92.000   Max.   :2.000   Max.   :2.000                   Max.   :3.000  
+                                                                                 
+    EMPSTATD        LABFORCE          OCC              IND           CLASSWKR    
+ Min.   : 0.00   Min.   :0.000   0      : 79987   0      :79987   Min.   :0.000  
+ 1st Qu.:10.00   1st Qu.:1.000   2310   :  3494   7860   : 9025   1st Qu.:0.000  
+ Median :10.00   Median :2.000   5700   :  3235   8680   : 6354   Median :2.000  
+ Mean   :15.16   Mean   :1.331   430    :  3025   770    : 6279   Mean   :1.116  
+ 3rd Qu.:30.00   3rd Qu.:2.000   4720   :  2666   8190   : 5873   3rd Qu.:2.000  
+ Max.   :30.00   Max.   :2.000   4760   :  2563   7870   : 4041   Max.   :2.000  
+                                 (Other):101615   (Other):85026                  
+   CLASSWKRD        WKSWORK2        UHRSWORK         INCTOT           FTOTINC       
+ Min.   : 0.00   Min.   :0.000   Min.   : 0.00   Min.   :  -7300   Min.   : -11800  
+ 1st Qu.: 0.00   1st Qu.:0.000   1st Qu.: 0.00   1st Qu.:   8000   1st Qu.:  35550  
+ Median :22.00   Median :1.000   Median :12.00   Median :  25000   Median :  74000  
+ Mean   :13.03   Mean   :2.701   Mean   :19.77   Mean   :  45245   Mean   : 107111  
+ 3rd Qu.:22.00   3rd Qu.:6.000   3rd Qu.:40.00   3rd Qu.:  56500   3rd Qu.: 132438  
+ Max.   :29.00   Max.   :6.000   Max.   :99.00   Max.   :1563000   Max.   :2030000  
+                                                 NA's   :31129     NA's   :10817    
+    INCWAGE          POVERTY         MIGRATE1       MIGRATE1D        MIGPLAC1      
+ Min.   :     0   Min.   :  0.0   Min.   :0.000   Min.   : 0.00   Min.   :  0.000  
+ 1st Qu.:     0   1st Qu.:159.0   1st Qu.:1.000   1st Qu.:10.00   1st Qu.:  0.000  
+ Median : 10000   Median :351.0   Median :1.000   Median :10.00   Median :  0.000  
+ Mean   : 33796   Mean   :318.7   Mean   :1.122   Mean   :11.51   Mean   :  6.184  
+ 3rd Qu.: 47000   3rd Qu.:501.0   3rd Qu.:1.000   3rd Qu.:10.00   3rd Qu.:  0.000  
+ Max.   :638000   Max.   :501.0   Max.   :4.000   Max.   :40.00   Max.   :900.000  
+ NA's   :33427                                                                     
+   MIGCOUNTY1         MIGPUMA1        VETSTAT          VETSTATD         PWPUMA00    
+ Min.   :  0.000   Min.   :    0   Min.   :0.0000   Min.   : 0.000   Min.   :    0  
+ 1st Qu.:  0.000   1st Qu.:    0   1st Qu.:1.0000   1st Qu.:11.000   1st Qu.:    0  
+ Median :  0.000   Median :    0   Median :1.0000   Median :11.000   Median :    0  
+ Mean   :  4.117   Mean   :  277   Mean   :0.8621   Mean   : 9.412   Mean   : 1255  
+ 3rd Qu.:  0.000   3rd Qu.:    0   3rd Qu.:1.0000   3rd Qu.:11.000   3rd Qu.: 3100  
+ Max.   :810.000   Max.   :70100   Max.   :2.0000   Max.   :20.000   Max.   :59300  
+                                                                                    
+    TRANWORK         TRANTIME         DEPARTS           in_NYC          in_Bronx     
+ Min.   : 0.000   Min.   :  0.00   Min.   :   0.0   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.: 0.000   1st Qu.:  0.00   1st Qu.:   0.0   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median : 0.000   Median :  0.00   Median :   0.0   Median :0.0000   Median :0.0000  
+ Mean   : 9.725   Mean   : 14.75   Mean   : 373.3   Mean   :0.3615   Mean   :0.0538  
+ 3rd Qu.:10.000   3rd Qu.: 20.00   3rd Qu.: 732.0   3rd Qu.:1.0000   3rd Qu.:0.0000  
+ Max.   :70.000   Max.   :138.00   Max.   :2345.0   Max.   :1.0000   Max.   :1.0000  
+                                                                                     
+  in_Manhattan       in_StatenI       in_Brooklyn      in_Queens      in_Westchester   
+ Min.   :0.00000   Min.   :0.00000   Min.   :0.000   Min.   :0.0000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.00000  
+ Median :0.00000   Median :0.00000   Median :0.000   Median :0.0000   Median :0.00000  
+ Mean   :0.04981   Mean   :0.02084   Mean   :0.126   Mean   :0.1111   Mean   :0.04413  
+ 3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.00000   Max.   :1.000   Max.   :1.0000   Max.   :1.00000  
+                                                                                       
+   in_Nassau          Hispanic         Hisp_Mex          Hisp_PR         Hisp_Cuban      
+ Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000   Min.   :0.000000  
+ 1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000000  
+ Median :0.00000   Median :0.0000   Median :0.00000   Median :0.0000   Median :0.000000  
+ Mean   :0.07032   Mean   :0.1387   Mean   :0.01626   Mean   :0.0436   Mean   :0.003403  
+ 3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.000000  
+ Max.   :1.00000   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000   Max.   :1.000000  
+                                                                                         
+   Hisp_DomR           white             AfAm          Amindian            Asian        
+ Min.   :0.00000   Min.   :0.0000   Min.   :0.000   Min.   :0.000000   Min.   :0.00000  
+ 1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.000000   1st Qu.:0.00000  
+ Median :0.00000   Median :1.0000   Median :0.000   Median :0.000000   Median :0.00000  
+ Mean   :0.02827   Mean   :0.6997   Mean   :0.125   Mean   :0.003779   Mean   :0.08656  
+ 3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:0.000   3rd Qu.:0.000000   3rd Qu.:0.00000  
+ Max.   :1.00000   Max.   :1.0000   Max.   :1.000   Max.   :1.000000   Max.   :1.00000  
+                                                                                        
+    race_oth        unmarried       veteran        has_AnyHealthIns has_PvtHealthIns
+ Min.   :0.0000   Min.   :0.00   Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.00   1st Qu.:0.00000   1st Qu.:1.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.00   Median :0.00000   Median :1.0000   Median :1.0000  
+ Mean   :0.1324   Mean   :0.45   Mean   :0.04443   Mean   :0.9513   Mean   :0.6906  
+ 3rd Qu.:0.0000   3rd Qu.:1.00   3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1.0000   Max.   :1.00   Max.   :1.00000   Max.   :1.0000   Max.   :1.0000  
+                                                                                    
+  Commute_car      Commute_bus      Commute_subway     Commute_rail     Commute_other    
+ Min.   :0.0000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+ 1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  
+ Median :0.0000   Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  
+ Mean   :0.2997   Mean   :0.02162   Mean   :0.07468   Mean   :0.01332   Mean   :0.05506  
+ 3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  
+ Max.   :1.0000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  
+                                                                                         
+ below_povertyline below_150poverty below_200poverty   foodstamps    
+ Min.   :0.000     Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.000     1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.000     Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.122     Mean   :0.1965   Mean   :0.2676   Mean   :0.1465  
+ 3rd Qu.:0.000     3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:0.0000  
+ Max.   :1.000     Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+                                                                     
+> 
+> print(NN_obs<-length(AGE))
+[1] 196585
+> summary(AGE[female==1])
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   23.00   44.00   42.72   61.00   95.00 
+> summary(AGE[!female])
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00   21.00   40.00   40.35   59.00   95.00 
+> 
+> #Average women and men
+> 
+> mean(AGE[female==1])
+[1] 42.71629
+> 
+> sd(AGE[female==1])
+[1] 23.72012
+> 
+> mean(AGE[!female])
+[1] 40.35398
+> 
+> sd(AGE[!female])
+[1] 23.1098
+> 
+> list(acs2017_ny)
+[[1]]
+# A tibble: 196,585 x 109
+     AGE female educ_nohs educ_hs educ_somecoll educ_college educ_advdeg SCHOOL EDUC  EDUCD
+   <dbl>  <dbl>     <dbl>   <dbl>         <dbl>        <dbl>       <dbl> <fct>  <fct> <fct>
+ 1    72      1         0       0             0            0           1 No, n~ 5+ y~ Mast~
+ 2    72      0         0       0             0            0           1 No, n~ 5+ y~ Doct~
+ 3    31      0         0       0             0            1           0 No, n~ 4 ye~ Bach~
+ 4    28      1         0       0             0            1           0 No, n~ 4 ye~ Bach~
+ 5    54      0         0       0             0            0           1 No, n~ 5+ y~ Mast~
+ 6    45      1         0       1             0            0           0 No, n~ Grad~ Regu~
+ 7    84      1         0       0             1            0           0 Yes, ~ 2 ye~ Asso~
+ 8    71      0         0       0             0            1           0 No, n~ 4 ye~ Bach~
+ 9    68      1         0       0             1            0           0 No, n~ 2 ye~ Asso~
+10    37      1         1       0             0            0           0 No, n~ Grad~ Grad~
+# ... with 196,575 more rows, and 99 more variables: DEGFIELD <fct>, DEGFIELDD <fct>,
+#   DEGFIELD2 <fct>, DEGFIELD2D <fct>, PUMA <dbl>, GQ <int>, OWNERSHP <int>, OWNERSHPD <int>,
+#   MORTGAGE <int>, OWNCOST <dbl>, RENT <dbl>, COSTELEC <dbl>, COSTGAS <dbl>, COSTWATR <dbl>,
+#   COSTFUEL <dbl>, HHINCOME <dbl>, FOODSTMP <int>, LINGISOL <int>, ROOMS <int>,
+#   BUILTYR2 <int>, UNITSSTR <int>, FUELHEAT <int>, SSMC <int>, FAMSIZE <int>, NCHILD <int>,
+#   NCHLT5 <int>, RELATE <int>, RELATED <int>, MARST <int>, RACE <int>, RACED <int>,
+#   HISPAN <int>, HISPAND <int>, BPL <fct>, BPLD <fct>, ANCESTR1 <fct>, ANCESTR1D <fct>,
+#   ANCESTR2 <fct>, ANCESTR2D <fct>, CITIZEN <int>, YRSUSA1 <dbl>, HCOVANY <int>,
+#   HCOVPRIV <int>, SEX <fct>, EMPSTAT <int>, EMPSTATD <int>, LABFORCE <int>, OCC <fct>,
+#   IND <fct>, CLASSWKR <int>, CLASSWKRD <int>, WKSWORK2 <int>, UHRSWORK <int>, INCTOT <dbl>,
+#   FTOTINC <dbl>, INCWAGE <dbl>, POVERTY <dbl>, MIGRATE1 <int>, MIGRATE1D <int>,
+#   MIGPLAC1 <int>, MIGCOUNTY1 <dbl>, MIGPUMA1 <dbl>, VETSTAT <int>, VETSTATD <int>,
+#   PWPUMA00 <dbl>, TRANWORK <int>, TRANTIME <dbl>, DEPARTS <dbl>, in_NYC <dbl>,
+#   in_Bronx <dbl>, in_Manhattan <dbl>, in_StatenI <dbl>, in_Brooklyn <dbl>, in_Queens <dbl>,
+#   in_Westchester <dbl>, in_Nassau <dbl>, Hispanic <dbl>, Hisp_Mex <dbl>, Hisp_PR <dbl>,
+#   Hisp_Cuban <dbl>, Hisp_DomR <dbl>, white <dbl>, AfAm <dbl>, Amindian <dbl>, Asian <dbl>,
+#   race_oth <dbl>, unmarried <dbl>, veteran <dbl>, has_AnyHealthIns <dbl>,
+#   has_PvtHealthIns <dbl>, Commute_car <dbl>, Commute_bus <dbl>, Commute_subway <dbl>,
+#   Commute_rail <dbl>, Commute_other <dbl>, below_povertyline <dbl>, below_150poverty <dbl>,
+#   below_200poverty <dbl>, foodstamps <dbl>
+
+> 
+> let analyze another fact between RACE and EDUC is there any correlation and how intense is that?
+Error: unexpected symbol in "let analyze"
+> 
+> T<-acs2017_ny$RACE
+> T
+   [1] 1 1 1 1 1 2 1 1 1 1 1 1 1 4 1 1 1 1 1 1 1 1 1 1 8 1 8 1 1 1 7 7 7 7 7 7 1 1 1 1 1 2 1 1
+  [45] 1 1 1 1 1 1 1 2 1 1 1 2 1 1 6 6 1 6 6 1 2 2 2 2 2 2 2 1 1 2 2 1 1 2 2 2 1 1 1 1 1 1 1 1
+  [89] 1 1 1 1 1 2 2 2 1 1 1 1 2 2 2 1 1 1 1 1 4 1 6 2 1 1 4 4 4 4 4 6 6 1 4 1 1 1 1 1 1 6 1 1
+ [133] 1 5 8 4 4 4 4 4 4 4 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 8 1 2 1
+ [177] 1 1 1 1 6 6 6 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 2 2 1 1 4 4 4 3 3 3 3 3 3
+ [221] 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 4 1 1 1 1 1 7 7 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [265] 1 4 4 1 1 1 1 1 1 1 1 1 1 7 7 7 1 1 1 1 1 1 1 1 1 1 1 1 1 4 8 1 1 1 1 1 1 1 1 1 1 1 4 8
+ [309] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 6 6 6 1 1 1 1 1 6 6 6 2 1 1 1 1 1 1 1 1 1 1 1 1 6 6 6
+ [353] 1 1 1 2 1 2 2 2 2 2 1 1 4 1 1 1 7 7 7 7 7 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 8 8 1 1 1 1
+ [397] 1 6 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 8 8 8 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 4 4 4 1 1 1
+ [441] 1 4 4 6 2 1 1 1 1 1 1 7 6 7 7 8 8 1 1 1 1 1 1 1 1 1 1 7 4 4 1 1 7 7 7 1 1 1 1 2 2 2 2 2
+ [485] 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 1 1 1 1 1 1 9 1 1 1 1 1 1 1 1 1
+ [529] 1 1 1 1 9 6 1 1 1 2 1 6 8 4 4 4 4 4 4 1 1 2 1 1 1 9 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [573] 2 1 1 1 1 1 1 1 7 7 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 7 7 1 1 1 1 1 1 7 1 2 1 1 1 1 1 1
+ [617] 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 6 6 6 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [661] 1 1 1 1 1 1 1 1 1 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 8 8 1 6 7 2 2 2 1 1 1 1 1 1 1 1 1 6
+ [705] 6 6 6 6 6 6 1 1 1 1 1 1 7 7 7 7 1 1 7 1 1 1 1 1 1 1 1 1 1 4 4 4 4 1 1 1 1 1 1 1 1 1 1 1
+ [749] 1 1 1 1 1 1 2 1 1 8 1 8 8 8 1 1 2 2 2 1 1 1 1 2 2 1 1 7 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [793] 1 1 1 1 1 1 6 8 8 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [837] 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 2 2 2 2 2 1 1 1 1 1 1 1 1 1 2 2 2 6 1 1 1 1 1 7 1 8 1
+ [881] 8 8 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 2 1 1 2 2 4 4 4 4 4 4 4 1
+ [925] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 6 6 6
+ [969] 1 1 1 1 1 1 1 8 2 2 8 1 2 2 2 2 4 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [ reached getOption("max.print") -- omitted 195585 entries ]
+attr(,"label")
+[1] "Race [general version]"
+attr(,"labels")
+                           White     Black/African American/Negro 
+                               1                                2 
+American Indian or Alaska Native                          Chinese 
+                               3                                4 
+                        Japanese  Other Asian or Pacific Islander 
+                               5                                6 
+                 Other race, nec                  Two major races 
+                               7                                8 
+       Three or more major races 
+                               9 
+attr(,"class")
+[1] "haven_labelled"
+> U<-acs2017_ny$EDUC
+> U
+   [1] 5+ years of college       5+ years of college       4 years of college       
+   [4] 4 years of college        5+ years of college       Grade 12                 
+   [7] 2 years of college        4 years of college        2 years of college       
+  [10] Grade 10                  5+ years of college       5+ years of college      
+  [13] Grade 5, 6, 7, or 8       4 years of college        4 years of college       
+  [16] 4 years of college        4 years of college        Grade 12                 
+  [19] Grade 9                   4 years of college        2 years of college       
+  [22] 5+ years of college       5+ years of college       5+ years of college      
+  [25] 5+ years of college       Nursery school to grade 4 N/A or no schooling      
+  [28] 4 years of college        1 year of college         N/A or no schooling      
+  [31] N/A or no schooling       4 years of college        N/A or no schooling      
+  [34] 1 year of college         1 year of college         Grade 5, 6, 7, or 8      
+  [37] 4 years of college        Grade 12                  Grade 5, 6, 7, or 8      
+  [40] Nursery school to grade 4 N/A or no schooling       Grade 12                 
+  [43] 5+ years of college       Grade 12                  Grade 11                 
+  [46] N/A or no schooling       2 years of college        Grade 12                 
+  [49] Grade 12                  Grade 12                  Grade 12                 
+  [52] 4 years of college        5+ years of college       2 years of college       
+  [55] 4 years of college        5+ years of college       Grade 12                 
+  [58] Grade 12                  Grade 5, 6, 7, or 8       Grade 12                 
+  [61] Grade 11                  Grade 12                  Grade 11                 
+  [64] 4 years of college        1 year of college         Grade 12                 
+  [67] Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8       Grade 12                 
+  [70] Grade 10                  Grade 5, 6, 7, or 8       4 years of college       
+  [73] 4 years of college        5+ years of college       5+ years of college      
+  [76] 1 year of college         4 years of college        Grade 11                 
+  [79] 5+ years of college       Grade 12                  5+ years of college      
+  [82] 2 years of college        N/A or no schooling       1 year of college        
+  [85] 1 year of college         Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8      
+  [88] Grade 5, 6, 7, or 8       Grade 12                  4 years of college       
+  [91] Grade 11                  4 years of college        2 years of college       
+  [94] 2 years of college        1 year of college         Nursery school to grade 4
+  [97] 4 years of college        2 years of college        Nursery school to grade 4
+ [100] N/A or no schooling       Grade 12                  1 year of college        
+ [103] 1 year of college         Grade 12                  Grade 12                 
+ [106] 2 years of college        Grade 10                  Grade 12                 
+ [109] 4 years of college        4 years of college        4 years of college       
+ [112] 5+ years of college       4 years of college        4 years of college       
+ [115] 1 year of college         Grade 9                   1 year of college        
+ [118] Grade 9                   Grade 9                   4 years of college       
+ [121] 1 year of college         Grade 12                  Grade 12                 
+ [124] 1 year of college         2 years of college        4 years of college       
+ [127] 5+ years of college       Grade 11                  Grade 9                  
+ [130] 5+ years of college       Grade 12                  Grade 10                 
+ [133] 4 years of college        Grade 12                  N/A or no schooling      
+ [136] Grade 12                  Grade 12                  Grade 11                 
+ [139] Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8       Grade 12                 
+ [142] Nursery school to grade 4 Nursery school to grade 4 N/A or no schooling      
+ [145] 1 year of college         Grade 12                  5+ years of college      
+ [148] 2 years of college        Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [151] 4 years of college        1 year of college         4 years of college       
+ [154] 5+ years of college       Nursery school to grade 4 N/A or no schooling      
+ [157] 5+ years of college       5+ years of college       2 years of college       
+ [160] Grade 12                  Grade 12                  2 years of college       
+ [163] 5+ years of college       Grade 12                  Grade 12                 
+ [166] 4 years of college        Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [169] 5+ years of college       1 year of college         Grade 12                 
+ [172] 1 year of college         4 years of college        1 year of college        
+ [175] Grade 12                  4 years of college        1 year of college        
+ [178] 1 year of college         Grade 12                  Grade 12                 
+ [181] Grade 10                  Grade 10                  Grade 11                 
+ [184] Grade 12                  Grade 5, 6, 7, or 8       Grade 12                 
+ [187] 4 years of college        Grade 12                  2 years of college       
+ [190] Grade 12                  Grade 12                  Grade 12                 
+ [193] 4 years of college        1 year of college         1 year of college        
+ [196] Nursery school to grade 4 Nursery school to grade 4 N/A or no schooling      
+ [199] Grade 10                  2 years of college        Grade 11                 
+ [202] Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8       4 years of college       
+ [205] Grade 12                  5+ years of college       Grade 9                  
+ [208] Grade 11                  Grade 5, 6, 7, or 8       Grade 12                 
+ [211] 1 year of college         5+ years of college       4 years of college       
+ [214] Grade 5, 6, 7, or 8       Grade 12                  1 year of college        
+ [217] N/A or no schooling       Grade 5, 6, 7, or 8       N/A or no schooling      
+ [220] N/A or no schooling       Grade 12                  Grade 11                 
+ [223] Grade 5, 6, 7, or 8       Grade 12                  5+ years of college      
+ [226] 1 year of college         5+ years of college       Grade 12                 
+ [229] 1 year of college         2 years of college        1 year of college        
+ [232] Nursery school to grade 4 Grade 12                  1 year of college        
+ [235] Grade 12                  Grade 5, 6, 7, or 8       1 year of college        
+ [238] Grade 12                  4 years of college        Grade 11                 
+ [241] 5+ years of college       5+ years of college       N/A or no schooling      
+ [244] 2 years of college        Grade 12                  Grade 12                 
+ [247] 2 years of college        1 year of college         N/A or no schooling      
+ [250] Grade 5, 6, 7, or 8       4 years of college        5+ years of college      
+ [253] 5+ years of college       N/A or no schooling       5+ years of college      
+ [256] 2 years of college        Nursery school to grade 4 Grade 12                 
+ [259] Grade 11                  5+ years of college       4 years of college       
+ [262] N/A or no schooling       N/A or no schooling       N/A or no schooling      
+ [265] N/A or no schooling       5+ years of college       5+ years of college      
+ [268] 4 years of college        2 years of college        Grade 5, 6, 7, or 8      
+ [271] Nursery school to grade 4 4 years of college        5+ years of college      
+ [274] 4 years of college        5+ years of college       1 year of college        
+ [277] 1 year of college         5+ years of college       5+ years of college      
+ [280] N/A or no schooling       5+ years of college       5+ years of college      
+ [283] 4 years of college        5+ years of college       1 year of college        
+ [286] N/A or no schooling       4 years of college        Grade 5, 6, 7, or 8      
+ [289] 1 year of college         4 years of college        1 year of college        
+ [292] 2 years of college        4 years of college        4 years of college       
+ [295] Nursery school to grade 4 Grade 12                  Grade 5, 6, 7, or 8      
+ [298] Nursery school to grade 4 4 years of college        Grade 12                 
+ [301] Grade 12                  Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8      
+ [304] 1 year of college         2 years of college        5+ years of college      
+ [307] 5+ years of college       Nursery school to grade 4 Grade 12                 
+ [310] 2 years of college        1 year of college         5+ years of college      
+ [313] 5+ years of college       5+ years of college       4 years of college       
+ [316] 5+ years of college       Grade 10                  5+ years of college      
+ [319] 4 years of college        5+ years of college       1 year of college        
+ [322] Grade 12                  1 year of college         Grade 5, 6, 7, or 8      
+ [325] Grade 5, 6, 7, or 8       2 years of college        4 years of college       
+ [328] 4 years of college        Grade 12                  2 years of college       
+ [331] Grade 12                  Grade 12                  1 year of college        
+ [334] 5+ years of college       5+ years of college       4 years of college       
+ [337] Grade 12                  4 years of college        4 years of college       
+ [340] N/A or no schooling       5+ years of college       5+ years of college      
+ [343] Grade 11                  2 years of college        2 years of college       
+ [346] Grade 12                  1 year of college         Grade 12                 
+ [349] Grade 12                  4 years of college        4 years of college       
+ [352] 5+ years of college       Grade 12                  Grade 12                 
+ [355] 4 years of college        4 years of college        1 year of college        
+ [358] Grade 12                  Grade 12                  2 years of college       
+ [361] Nursery school to grade 4 Nursery school to grade 4 4 years of college       
+ [364] 4 years of college        4 years of college        Grade 12                 
+ [367] Grade 12                  2 years of college        5+ years of college      
+ [370] Grade 5, 6, 7, or 8       N/A or no schooling       N/A or no schooling      
+ [373] N/A or no schooling       5+ years of college       4 years of college       
+ [376] 4 years of college        1 year of college         1 year of college        
+ [379] Grade 12                  Grade 12                  4 years of college       
+ [382] Grade 12                  Grade 12                  Grade 12                 
+ [385] Grade 12                  1 year of college         Grade 12                 
+ [388] 4 years of college        5+ years of college       5+ years of college      
+ [391] 4 years of college        Nursery school to grade 4 4 years of college       
+ [394] Grade 12                  Nursery school to grade 4 Nursery school to grade 4
+ [397] 4 years of college        5+ years of college       4 years of college       
+ [400] 5+ years of college       5+ years of college       2 years of college       
+ [403] Grade 11                  4 years of college        5+ years of college      
+ [406] Grade 12                  Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [409] 4 years of college        4 years of college        Grade 12                 
+ [412] N/A or no schooling       Grade 10                  4 years of college       
+ [415] Grade 12                  5+ years of college       4 years of college       
+ [418] 4 years of college        2 years of college        Grade 10                 
+ [421] Grade 12                  4 years of college        1 year of college        
+ [424] Grade 12                  4 years of college        5+ years of college      
+ [427] 5+ years of college       1 year of college         5+ years of college      
+ [430] Grade 12                  Grade 12                  Grade 12                 
+ [433] 2 years of college        2 years of college        5+ years of college      
+ [436] 4 years of college        Grade 5, 6, 7, or 8       5+ years of college      
+ [439] 4 years of college        Grade 5, 6, 7, or 8       Grade 9                  
+ [442] Grade 12                  4 years of college        5+ years of college      
+ [445] 4 years of college        Grade 12                  Grade 12                 
+ [448] Nursery school to grade 4 Grade 12                  2 years of college       
+ [451] 4 years of college        N/A or no schooling       Grade 12                 
+ [454] 1 year of college         Grade 12                  4 years of college       
+ [457] 4 years of college        2 years of college        Nursery school to grade 4
+ [460] Grade 12                  5+ years of college       5+ years of college      
+ [463] 5+ years of college       2 years of college        Grade 12                 
+ [466] Grade 12                  Grade 12                  1 year of college        
+ [469] 4 years of college        Grade 5, 6, 7, or 8       1 year of college        
+ [472] Grade 12                  Grade 9                   N/A or no schooling      
+ [475] N/A or no schooling       5+ years of college       5+ years of college      
+ [478] N/A or no schooling       N/A or no schooling       4 years of college       
+ [481] Grade 12                  Grade 11                  Grade 12                 
+ [484] Grade 12                  Grade 5, 6, 7, or 8       5+ years of college      
+ [487] 5+ years of college       N/A or no schooling       N/A or no schooling      
+ [490] Grade 12                  4 years of college        Grade 12                 
+ [493] Grade 12                  Grade 12                  Grade 12                 
+ [496] 4 years of college        2 years of college        2 years of college       
+ [499] Grade 12                  4 years of college        N/A or no schooling      
+ [502] 4 years of college        5+ years of college       5+ years of college      
+ [505] Grade 12                  1 year of college         Grade 12                 
+ [508] Grade 12                  4 years of college        5+ years of college      
+ [511] Grade 12                  4 years of college        Grade 12                 
+ [514] Grade 12                  Grade 9                   Nursery school to grade 4
+ [517] 5+ years of college       2 years of college        Grade 12                 
+ [520] 4 years of college        4 years of college        N/A or no schooling      
+ [523] Grade 12                  5+ years of college       Nursery school to grade 4
+ [526] Grade 12                  Grade 12                  4 years of college       
+ [529] Nursery school to grade 4 N/A or no schooling       1 year of college        
+ [532] Grade 12                  4 years of college        5+ years of college      
+ [535] 4 years of college        5+ years of college       4 years of college       
+ [538] N/A or no schooling       5+ years of college       4 years of college       
+ [541] Grade 11                  Grade 12                  4 years of college       
+ [544] Nursery school to grade 4 Nursery school to grade 4 Grade 5, 6, 7, or 8      
+ [547] Grade 10                  4 years of college        Grade 12                 
+ [550] Grade 12                  5+ years of college       5+ years of college      
+ [553] Grade 10                  Grade 12                  N/A or no schooling      
+ [556] 4 years of college        5+ years of college       4 years of college       
+ [559] 5+ years of college       4 years of college        Grade 5, 6, 7, or 8      
+ [562] 2 years of college        1 year of college         Grade 5, 6, 7, or 8      
+ [565] 4 years of college        2 years of college        4 years of college       
+ [568] Grade 12                  5+ years of college       Grade 12                 
+ [571] 4 years of college        2 years of college        Grade 12                 
+ [574] Grade 12                  4 years of college        Grade 5, 6, 7, or 8      
+ [577] N/A or no schooling       Grade 11                  Grade 12                 
+ [580] Grade 12                  5+ years of college       Grade 12                 
+ [583] 4 years of college        4 years of college        2 years of college       
+ [586] N/A or no schooling       N/A or no schooling       Grade 9                  
+ [589] 5+ years of college       5+ years of college       Nursery school to grade 4
+ [592] N/A or no schooling       Grade 12                  Grade 12                 
+ [595] 2 years of college        4 years of college        Grade 12                 
+ [598] Grade 12                  Grade 12                  5+ years of college      
+ [601] 2 years of college        4 years of college        1 year of college        
+ [604] Grade 12                  Grade 12                  5+ years of college      
+ [607] 4 years of college        4 years of college        5+ years of college      
+ [610] Grade 12                  4 years of college        1 year of college        
+ [613] 4 years of college        4 years of college        4 years of college       
+ [616] 1 year of college         1 year of college         5+ years of college      
+ [619] 5+ years of college       Nursery school to grade 4 2 years of college       
+ [622] 4 years of college        4 years of college        Grade 12                 
+ [625] Grade 5, 6, 7, or 8       Grade 12                  2 years of college       
+ [628] 5+ years of college       1 year of college         1 year of college        
+ [631] Grade 12                  Grade 12                  Grade 9                  
+ [634] Grade 10                  1 year of college         1 year of college        
+ [637] Grade 12                  1 year of college         4 years of college       
+ [640] 4 years of college        1 year of college         Grade 12                 
+ [643] Grade 12                  5+ years of college       4 years of college       
+ [646] Grade 12                  Grade 9                   Grade 5, 6, 7, or 8      
+ [649] 4 years of college        Grade 5, 6, 7, or 8       4 years of college       
+ [652] 5+ years of college       4 years of college        2 years of college       
+ [655] 5+ years of college       5+ years of college       Grade 5, 6, 7, or 8      
+ [658] Grade 5, 6, 7, or 8       Nursery school to grade 4 Nursery school to grade 4
+ [661] 2 years of college        Nursery school to grade 4 1 year of college        
+ [664] Nursery school to grade 4 5+ years of college       4 years of college       
+ [667] 4 years of college        Grade 11                  Grade 9                  
+ [670] Grade 9                   5+ years of college       Nursery school to grade 4
+ [673] 1 year of college         Grade 12                  Grade 12                 
+ [676] 4 years of college        1 year of college         4 years of college       
+ [679] Grade 11                  4 years of college        1 year of college        
+ [682] Grade 5, 6, 7, or 8       Nursery school to grade 4 Nursery school to grade 4
+ [685] N/A or no schooling       2 years of college        Grade 12                 
+ [688] N/A or no schooling       Grade 12                  Grade 12                 
+ [691] 4 years of college        Nursery school to grade 4 Nursery school to grade 4
+ [694] 2 years of college        4 years of college        Grade 12                 
+ [697] Grade 12                  5+ years of college       Grade 10                 
+ [700] Grade 5, 6, 7, or 8       Nursery school to grade 4 4 years of college       
+ [703] Grade 12                  5+ years of college       5+ years of college      
+ [706] 1 year of college         Grade 9                   5+ years of college      
+ [709] 4 years of college        4 years of college        1 year of college        
+ [712] 4 years of college        4 years of college        4 years of college       
+ [715] Grade 12                  Grade 12                  Grade 12                 
+ [718] N/A or no schooling       Grade 12                  N/A or no schooling      
+ [721] Grade 5, 6, 7, or 8       4 years of college        4 years of college       
+ [724] 4 years of college        4 years of college        4 years of college       
+ [727] 5+ years of college       4 years of college        1 year of college        
+ [730] 5+ years of college       4 years of college        4 years of college       
+ [733] Grade 12                  Nursery school to grade 4 Grade 9                  
+ [736] Grade 5, 6, 7, or 8       Nursery school to grade 4 Grade 12                 
+ [739] Grade 12                  Grade 12                  Grade 12                 
+ [742] Nursery school to grade 4 2 years of college        4 years of college       
+ [745] Grade 12                  Grade 12                  5+ years of college      
+ [748] 5+ years of college       2 years of college        Grade 12                 
+ [751] 5+ years of college       1 year of college         2 years of college       
+ [754] Grade 12                  Grade 11                  N/A or no schooling      
+ [757] Grade 11                  Grade 5, 6, 7, or 8       Grade 12                 
+ [760] 2 years of college        N/A or no schooling       Grade 9                  
+ [763] 5+ years of college       5+ years of college       Grade 12                 
+ [766] Grade 5, 6, 7, or 8       1 year of college         1 year of college        
+ [769] 1 year of college         1 year of college         Grade 12                 
+ [772] Grade 12                  Grade 12                  Grade 12                 
+ [775] Grade 12                  Grade 12                  1 year of college        
+ [778] Grade 12                  Grade 9                   1 year of college        
+ [781] 2 years of college        Grade 12                  Grade 12                 
+ [784] Grade 12                  Grade 12                  Grade 12                 
+ [787] 4 years of college        4 years of college        Grade 11                 
+ [790] Grade 5, 6, 7, or 8       2 years of college        Grade 12                 
+ [793] Grade 12                  Grade 12                  Grade 12                 
+ [796] Grade 12                  Grade 5, 6, 7, or 8       4 years of college       
+ [799] 4 years of college        Nursery school to grade 4 Nursery school to grade 4
+ [802] Grade 12                  Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [805] Grade 12                  Grade 12                  1 year of college        
+ [808] 1 year of college         Grade 12                  Grade 12                 
+ [811] Grade 12                  Grade 12                  1 year of college        
+ [814] Grade 12                  4 years of college        1 year of college        
+ [817] 1 year of college         N/A or no schooling       2 years of college       
+ [820] 1 year of college         2 years of college        Grade 12                 
+ [823] Nursery school to grade 4 Nursery school to grade 4 Grade 5, 6, 7, or 8      
+ [826] Grade 10                  4 years of college        Grade 12                 
+ [829] Grade 12                  Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [832] 1 year of college         Grade 12                  Grade 12                 
+ [835] 1 year of college         Grade 9                   5+ years of college      
+ [838] 5+ years of college       4 years of college        1 year of college        
+ [841] Grade 11                  Grade 5, 6, 7, or 8       Nursery school to grade 4
+ [844] 4 years of college        1 year of college         Grade 12                 
+ [847] 2 years of college        5+ years of college       Grade 12                 
+ [850] 5+ years of college       4 years of college        5+ years of college      
+ [853] 5+ years of college       Grade 12                  Grade 12                 
+ [856] 4 years of college        1 year of college         2 years of college       
+ [859] 5+ years of college       4 years of college        Nursery school to grade 4
+ [862] N/A or no schooling       1 year of college         4 years of college       
+ [865] 4 years of college        4 years of college        1 year of college        
+ [868] Grade 12                  Nursery school to grade 4 4 years of college       
+ [871] 4 years of college        5+ years of college       5+ years of college      
+ [874] 4 years of college        1 year of college         Grade 12                 
+ [877] Grade 12                  4 years of college        4 years of college       
+ [880] 5+ years of college       4 years of college        Grade 11                 
+ [883] Grade 12                  Grade 12                  Grade 12                 
+ [886] Grade 12                  4 years of college        Grade 12                 
+ [889] 1 year of college         5+ years of college       5+ years of college      
+ [892] Grade 5, 6, 7, or 8       Grade 5, 6, 7, or 8       5+ years of college      
+ [895] 4 years of college        Grade 12                  2 years of college       
+ [898] 5+ years of college       1 year of college         Grade 12                 
+ [901] Grade 9                   1 year of college         Grade 12                 
+ [904] 2 years of college        4 years of college        Grade 12                 
+ [907] Grade 12                  N/A or no schooling       Grade 12                 
+ [910] 4 years of college        5+ years of college       2 years of college       
+ [913] 1 year of college         5+ years of college       1 year of college        
+ [916] Grade 9                   4 years of college        N/A or no schooling      
+ [919] N/A or no schooling       N/A or no schooling       N/A or no schooling      
+ [922] 4 years of college        Grade 5, 6, 7, or 8       5+ years of college      
+ [925] 5+ years of college       5+ years of college       Grade 5, 6, 7, or 8      
+ [928] Grade 5, 6, 7, or 8       Nursery school to grade 4 2 years of college       
+ [931] Grade 12                  N/A or no schooling       N/A or no schooling      
+ [934] Grade 5, 6, 7, or 8       Grade 12                  5+ years of college      
+ [937] 2 years of college        4 years of college        4 years of college       
+ [940] 4 years of college        4 years of college        N/A or no schooling      
+ [943] 2 years of college        Nursery school to grade 4 N/A or no schooling      
+ [946] N/A or no schooling       Grade 12                  Grade 12                 
+ [949] 5+ years of college       4 years of college        Grade 12                 
+ [952] Grade 12                  Grade 12                  4 years of college       
+ [955] 1 year of college         Grade 5, 6, 7, or 8       2 years of college       
+ [958] 4 years of college        Nursery school to grade 4 Nursery school to grade 4
+ [961] 4 years of college        Grade 12                  Grade 12                 
+ [964] 2 years of college        Nursery school to grade 4 4 years of college       
+ [967] 4 years of college        Grade 12                  1 year of college        
+ [970] 4 years of college        Grade 12                  Grade 9                  
+ [973] 4 years of college        4 years of college        1 year of college        
+ [976] Grade 12                  Grade 11                  Grade 9                  
+ [979] Nursery school to grade 4 Nursery school to grade 4 2 years of college       
+ [982] 5+ years of college       Nursery school to grade 4 Nursery school to grade 4
+ [985] 2 years of college        Grade 5, 6, 7, or 8       2 years of college       
+ [988] 5+ years of college       5+ years of college       Grade 5, 6, 7, or 8      
+ [991] Grade 5, 6, 7, or 8       5+ years of college       4 years of college       
+ [994] Grade 12                  Grade 12                  4 years of college       
+ [997] 4 years of college        4 years of college        4 years of college       
+[1000] Grade 12                 
+ [ reached getOption("max.print") -- omitted 195585 entries ]
+attr(,"label")
+[1] Educational attainment [general version]
+12 Levels: N/A or no schooling Nursery school to grade 4 Grade 5, 6, 7, or 8 ... 5+ years of college
+> RAED<-lm(U~T)
+Warning messages:
+1: In model.response(mf, "numeric") :
+  using type = "numeric" with a factor response will be ignored
+2: In Ops.factor(y, z$residuals) : ‘-’ not meaningful for factors
+> coef(RAED)
+(Intercept)           T 
+  7.4523370  -0.1919356 
+> 
+> # we notice a weak correlation between RACE and EDUC.
+> # IV)
+> 
+> library(readxl)
+> SP_Data <- read_excel("~/SP Data.xlsx")
+>  View(SP_Data)
+> R<-SP_Data$value
+> mean(R)
+[1] 7.638817
+> # this data is the historical annual return of S&P since 1928
+> mean(R>0)
+[1] 0.6666667
+> mean(R<0)
+[1] 0.311828
+> sd(R)
+[1] 19.05654
+> sd(R>0)
+[1] 0.4739596
+> sd(R<0)
+[1] 0.4657508
+> D<-SP_Data$date
+> K<-lm(R~D)
+> plot(R,type ="l", ylab= "value", lwd=2,xlim=c(1,93), ylim= c(-50,50), col= "blue")
+> 
+> # the annualaized data of the S&P return fromm 1928 to 2020 is quite volatilw which is traduced by the 46.57% as standard deviation
+> # Another example
+> 
+> library(readxl)
+> S_P_historical_data <- read_excel("R/ecob2000_lecture1/S&P historical data.xlsx")
+Error: `path` does not exist: ‘R/ecob2000_lecture1/S&P historical data.xlsx’
+> View(S_P_historical_data)
+> 
+> frequency(S_P_historical_data$return)
+[1] 1
+> plot(S_P_historical_data$return, type="l", xlim= c(0,20), ylim=c(-0.05,0.05))
+> mean(S_P_historical_data$return)
+[1] -0.001372944
+> mean(S_P_historical_data$return>0)
+[1] 0.6
+> mean(S_P_historical_data$return<0)
+[1] 0.4
+> sd(S_P_historical_data$return)
+[1] 0.01027283
+> sd(S_P_historical_data$return>0)
+[1] 0.5026247
+> sd(S_P_historical_data$return<0)
+[1] 0.5026247
+> volatility<-(sd(S_P_historical_data$return))^2
+> volatility
+[1] 0.000105531
+> # we can conclude that the stock return over the period from 8/12/20 to 9/12/20 was less volatile on the 13 first days compared to the other part of the time where the daily return was quite volatile
+> 
+> 
+> The hot hands fallacy could be qualified as surprinsing discovery about statistics and I think that helps investment strategy in many ways: it warns us that there is not abosolute certainity about data and that we should be carefully in interpreting statistic analysis. Also, it shows off the randomness always existing in all pattern.
+Error: unexpected symbol in "The hot"
